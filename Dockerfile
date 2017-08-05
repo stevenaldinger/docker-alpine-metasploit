@@ -63,7 +63,7 @@ RUN chmod a+x /usr/bin/container_entrypoint \
  && ln -sf /metasploit-framework/msfvenom /usr/bin/msfvenom \
  && cat '%sudo	ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
  && su - metasploit sudo -s/bin/bash -c "\
-     bundle install --without test --jobs=$NPROC --gemfile=/metasploit-framework/Gemfile
+     bundle install --without test --jobs=$NPROC --gemfile=/metasploit-framework/Gemfile \
  "\
  && apk del build-deps && rm -rf /var/cache/apk/*
 
