@@ -61,7 +61,7 @@ RUN chmod a+x /usr/bin/container_entrypoint \
  && ln -sf /metasploit-framework/msfrpcd /usr/bin/msfrpcd \
  && ln -sf /metasploit-framework/msfupdate /usr/bin/msfupdate \
  && ln -sf /metasploit-framework/msfvenom /usr/bin/msfvenom \
- && cat '%sudo	ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
+ && echo '%sudo	ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
  && su - metasploit sudo -s/bin/bash -c "\
      bundle install --without test --jobs=$NPROC --gemfile=/metasploit-framework/Gemfile \
  "\
