@@ -60,9 +60,9 @@ RUN chmod a+x /usr/bin/container_entrypoint \
  && ln -sf /metasploit-framework/msfrpcd /usr/bin/msfrpcd \
  && ln -sf /metasploit-framework/msfupdate /usr/bin/msfupdate \
  && ln -sf /metasploit-framework/msfvenom /usr/bin/msfvenom \
- && su - metasploit -s/bin/bash -c "\
-     cd /metasploit-framework && bundle install \
- "\
+ # && su - metasploit -s/bin/bash -c "\
+  &&   cd /metasploit-framework && bundle install \
+ # "\
  && apk del build-deps && rm -rf /var/cache/apk/*
 
 WORKDIR /metasploit-framework
