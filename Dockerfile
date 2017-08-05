@@ -13,6 +13,7 @@ RUN chmod a+x /usr/bin/container_entrypoint \
             # general tools
             bash \
             curl \
+            git \
             libcurl \
             libpcap \
             # ruby
@@ -31,7 +32,6 @@ RUN chmod a+x /usr/bin/container_entrypoint \
             dpkg-dev dpkg \
             gcc \
             gdbm-dev \
-            git \
             glib-dev \
             libc-dev \
             libffi-dev \
@@ -60,9 +60,8 @@ RUN chmod a+x /usr/bin/container_entrypoint \
  && ln -sf /metasploit-framework/msfrpcd /usr/bin/msfrpcd \
  && ln -sf /metasploit-framework/msfupdate /usr/bin/msfupdate \
  && ln -sf /metasploit-framework/msfvenom /usr/bin/msfvenom \
- # && su - metasploit -s/bin/bash -c "\
-  &&   cd /metasploit-framework && bundle install \
- # "\
+ && cd /metasploit-framework && bundle install \
+ && chown -R metasploit:metasploit /metasploit-framework/.bundle/ \
  && apk del build-deps && rm -rf /var/cache/apk/*
 
 WORKDIR /metasploit-framework
