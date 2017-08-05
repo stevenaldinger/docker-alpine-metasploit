@@ -48,7 +48,6 @@ RUN chmod a+x /usr/bin/container_entrypoint \
             readline-dev \
             ruby \
             sqlite-dev \
-            sudo \
             tar \
             xz \
             yaml-dev \
@@ -61,9 +60,8 @@ RUN chmod a+x /usr/bin/container_entrypoint \
  && ln -sf /metasploit-framework/msfrpcd /usr/bin/msfrpcd \
  && ln -sf /metasploit-framework/msfupdate /usr/bin/msfupdate \
  && ln -sf /metasploit-framework/msfvenom /usr/bin/msfvenom \
- && echo '%sudo	ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
- && su - metasploit sudo -s/bin/bash -c "\
-     bundle install --without test --jobs=$NPROC --gemfile=/metasploit-framework/Gemfile \
+ && su - metasploit -s/bin/bash -c "\
+     cd /metasploit-framework && bundle install \
  "\
  && apk del build-deps && rm -rf /var/cache/apk/*
 
