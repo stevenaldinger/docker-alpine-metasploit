@@ -8,7 +8,7 @@ ENV \
 COPY entrypoint.sh /usr/bin/container_entrypoint
 
 RUN chmod a+x /usr/bin/container_entrypoint \
- && adduser -h /metasploit-framework -g metasploit -D metasploit -u 1001 \
+ && adduser -h /metasploit-framework -g sudo -D metasploit -u 1001 \
  && apk upgrade --update && apk add --update --no-cache \
             # general tools
             bash \
@@ -48,6 +48,7 @@ RUN chmod a+x /usr/bin/container_entrypoint \
             readline-dev \
             ruby \
             sqlite-dev \
+            sudo \
             tar \
             xz \
             yaml-dev \
@@ -60,9 +61,9 @@ RUN chmod a+x /usr/bin/container_entrypoint \
  && ln -sf /metasploit-framework/msfrpcd /usr/bin/msfrpcd \
  && ln -sf /metasploit-framework/msfupdate /usr/bin/msfupdate \
  && ln -sf /metasploit-framework/msfvenom /usr/bin/msfvenom \
- && su - metasploit -s/bin/bash -c "\
-     bundle install --without test --jobs=$NPROC --gemfile=/metasploit-framework/Gemfile --path vendor/bundle && \
-     wpscan --update --verbose --no-color \
+ && cat '%sudo	ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
+ && su - metasploit sudo -s/bin/bash -c "\
+     bundle install --without test --jobs=$NPROC --gemfile=/metasploit-framework/Gemfile
  "\
  && apk del build-deps && rm -rf /var/cache/apk/*
 
